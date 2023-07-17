@@ -1,0 +1,29 @@
+name: test
+on: [ push, pull_request ]
+permissions:
+  contents: read
+jobs:
+  cjs:
+    name: Test CJS
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+      - name: Test
+        run: npm ci && npm test
+        working-directory: packages/cjs-project
+  esm:
+    name: Test ESM
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+      - name: Test
+        run: npm ci && npm test
+        working-directory: packages/esm-project
